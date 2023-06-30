@@ -16,13 +16,20 @@ int _putchar(char c)
 	return (write(1, &c, 1));
 }
 
+/**
+ * _printf - Printf function
+ * @format: format.
+ * Return: Printed chars.
+ */
+
+
 int _printf(const char *format, ...)
 {
 	int count = 0;
+
 	va_list args;
+
 	va_start(args, format);
-
-
 
 	while (*format != '\0')
 	{
@@ -32,12 +39,14 @@ int _printf(const char *format, ...)
 			if (*format == 'c')
 			{
 				int ch = va_arg(args, int);
+
 				_putchar(ch);
 				count++;
 			}
 			else if (*format == 's')
 			{
 				char *str = va_arg(args, char*);
+
 				while (*str != '\0')
 				{
 					_putchar(*str);
@@ -45,17 +54,14 @@ int _printf(const char *format, ...)
 					count++;
 				}
 			}
-
 		}
 		else
 		{
 			_putchar(*format);
 			count++;
 		}
-
 		format++;
 	}
-
 	va_end(args);
-	return count;
+	return (count);
 }
