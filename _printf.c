@@ -15,6 +15,39 @@ int _putchar(char c)
 {
 	return (write(1, &c, 1));
 }
+/**
+ * printInteger - prints the integer specifier
+ * @num: integer input
+ */
+
+void printInteger(int num)
+{
+	int tempCount = 0, numCopy = num, i, divisor = 1;
+
+	if (num < 0)
+	{
+		_putchar('-');
+		num = -num;
+	}
+
+	do {
+		tempCount++;
+		numCopy /= 10;
+	} while (numCopy != 0);
+
+	for (i = 1; i < tempCount; i++)
+	{
+		divisor *= 10;
+	}
+
+	do {
+		int digit = num / divisor;
+
+		_putchar(digit + '0');
+		num %= divisor;
+		divisor /= 10;
+	} while (divisor != 0);
+}
 
 /**
  * _printf - Printf function
@@ -30,7 +63,6 @@ int _printf(const char *format, ...)
 	va_list args;
 
 	va_start(args, format);
-
 	while (*format != '\0')
 	{
 		if (*format == '%')
@@ -53,6 +85,12 @@ int _printf(const char *format, ...)
 					str++;
 					count++;
 				}
+			}
+			else if (*format == 'd' || *format == 'i')
+			{
+				int num = va_arg(args, int);
+				printInteger(num);
+				count++;
 			}
 		}
 		else
